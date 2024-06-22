@@ -7,13 +7,13 @@ import (
 )
 
 var (
-	InvalidSpotNumberError          = errors.New("Invalid spot number")
-	SpotNotFoundError               = errors.New("Spot not found")
-	SpotAlreadyReservedError        = errors.New("Spot already reserved")
-	SpotNameRequiredError           = errors.New("Spot name is required")
-	SpotNameLeastTwoCharactersError = errors.New("Spot name must be at least 2 characters long")
-	SpotNameStartWithLetterError    = errors.New("Spot name must start with a letter")
-	SpotNameEndsWithNumberError     = errors.New("Spot name must end with a number ")
+	ErrorInvalidSpotNumber          = errors.New("invalid spot number")
+	ErrorSpotNotFound               = errors.New("spot not found")
+	ErrorSpotAlreadyReserved        = errors.New("spot already reserved")
+	ErrorSpotNameRequired           = errors.New("spot name is required")
+	ErrorSpotNameLeastTwoCharacters = errors.New("spot name must be at least 2 characters long")
+	ErrorSpotNameStartWithLetter    = errors.New("spot name must start with a letter")
+	ErrorSpotNameEndsWithNumber     = errors.New("spot name must end with a number ")
 )
 
 type SpotStatus string
@@ -49,19 +49,19 @@ func NewSpot(event *Event, name string) (*Spot, error) {
 func (spot *Spot) Validate() error {
 
 	if spot.Name == "" {
-		return SpotNameRequiredError
+		return ErrorEventNameRequired
 	}
 
 	if len(spot.Name) < 2 {
-		return SpotNameLeastTwoCharactersError
+		return ErrorSpotNameLeastTwoCharacters
 	}
 
 	if spot.Name[0] < 'A' || spot.Name[0] > 'Z' {
-		return SpotNameStartWithLetterError
+		return ErrorSpotNameStartWithLetter
 	}
 
 	if spot.Name[1] < '0' || spot.Name[1] > '9' {
-		return SpotNameEndsWithNumberError
+		return ErrorSpotNameEndsWithNumber
 	}
 
 	return nil

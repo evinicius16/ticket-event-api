@@ -6,10 +6,10 @@ import (
 )
 
 var (
-	EventNameRequiredError = errors.New("Event name is required")
-	EvendDateFutureError   = errors.New("Event date must be in the future")
-	EventCapacityZeroError = errors.New("Event capacity must be greater than zero")
-	EventPriceZeroError    = errors.New("Event price must be grater than zero")
+	ErrorEventNameRequired = errors.New("event name is required")
+	ErrorEvendDateFuture   = errors.New("event date must be in the future")
+	ErrorEventCapacityZero = errors.New("event capacity must be greater than zero")
+	ErrorEventPriceZero    = errors.New("event price must be grater than zero")
 )
 
 type Rating string
@@ -40,19 +40,19 @@ type Event struct {
 
 func (event Event) Validate() error {
 	if event.Name == "" {
-		return EventNameRequiredError
+		return ErrorEventNameRequired
 	}
 
 	if event.Date.Before(time.Now()) {
-		return EvendDateFutureError
+		return ErrorEvendDateFuture
 	}
 
 	if event.Capacity <= 0 {
-		return EventCapacityZeroError
+		return ErrorEventCapacityZero
 	}
 
 	if event.Price <= 0 {
-		return EventPriceZeroError
+		return ErrorEventPriceZero
 	}
 
 	return nil
